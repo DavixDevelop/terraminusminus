@@ -3,7 +3,7 @@ package net.buildtheearth.terraminusminus.generator;
 import java.util.Arrays;
 
 import lombok.Getter;
-import net.buildtheearth.terraminusminus.substitutes.Biome;
+import net.buildtheearth.terraminusminus.substitutes.IBiome;
 import net.buildtheearth.terraminusminus.util.ImmutableCompactArray;
 import net.daporkchop.lib.common.reference.ReferenceStrength;
 import net.daporkchop.lib.common.reference.cache.Cached;
@@ -14,20 +14,20 @@ import net.daporkchop.lib.common.reference.cache.Cached;
  * @author DaPorkchop_
  */
 @Getter
-public class ChunkBiomesBuilder implements IEarthAsyncDataBuilder<ImmutableCompactArray<Biome>> {
+public class ChunkBiomesBuilder implements IEarthAsyncDataBuilder<ImmutableCompactArray<IBiome<?>>> {
     private static final Cached<ChunkBiomesBuilder> BUILDER_CACHE = Cached.threadLocal(ChunkBiomesBuilder::new, ReferenceStrength.SOFT);
 
     public static ChunkBiomesBuilder get() {
         return BUILDER_CACHE.get().reset();
     }
 
-    protected final Biome[] state = new Biome[16 * 16];
+    protected final IBiome<?>[] state = new IBiome[16 * 16];
 
-    public Biome get(int x, int z) {
+    public IBiome<?> get(int x, int z) {
         return this.state[x * 16 + z];
     }
 
-    public ChunkBiomesBuilder set(int x, int z, Biome biome) {
+    public ChunkBiomesBuilder set(int x, int z, IBiome<?> biome) {
         this.state[x * 16 + z] = biome;
         return this;
     }
@@ -44,7 +44,7 @@ public class ChunkBiomesBuilder implements IEarthAsyncDataBuilder<ImmutableCompa
      * @return the array of biomes in this chunk
      */
     @Override
-    public ImmutableCompactArray<Biome> build() {
+    public ImmutableCompactArray<IBiome<?>> build() {
         for (int i = 0; i < 16 * 16; i++) {
             if (this.state[i] == null) {
                 throw new IllegalStateException("all biomes must be set!");

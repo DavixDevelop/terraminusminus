@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 
 import net.buildtheearth.terraminusminus.dataset.osm.BlockStateParser;
 import net.buildtheearth.terraminusminus.substitutes.BlockState;
-import net.buildtheearth.terraminusminus.substitutes.Biome;
+import net.buildtheearth.terraminusminus.substitutes.IBiome;
 import net.buildtheearth.terraminusminus.util.BiomeDeserializeMixin;
 
 public class TerraConstants {
@@ -32,7 +32,7 @@ public class TerraConstants {
             .configure(JsonReadFeature.ALLOW_LEADING_DECIMAL_POINT_FOR_NUMBERS, true)
             .configure(JsonReadFeature.ALLOW_NON_NUMERIC_NUMBERS, true)
             .configure(JsonReadFeature.ALLOW_TRAILING_COMMA, true)
-            .addMixIn(Biome.class, BiomeDeserializeMixin.class)
+            .addMixIn(IBiome.class, BiomeDeserializeMixin.class)
             .build();
 
     /**

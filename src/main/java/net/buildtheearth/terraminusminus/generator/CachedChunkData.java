@@ -15,9 +15,10 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import net.buildtheearth.terraminusminus.substitutes.MetaBiome;
 import net.buildtheearth.terraminusminus.substitutes.BlockState;
 import net.buildtheearth.terraminusminus.substitutes.ChunkPos;
-import net.buildtheearth.terraminusminus.substitutes.Biome;
+import net.buildtheearth.terraminusminus.substitutes.IBiome;
 import net.buildtheearth.terraminusminus.util.CustomAttributeContainer;
 import net.buildtheearth.terraminusminus.util.ImmutableCompactArray;
 import net.daporkchop.lib.common.reference.ReferenceStrength;
@@ -56,7 +57,7 @@ public class CachedChunkData extends CustomAttributeContainer {
     private final int[] groundHeight;
 
     @Getter
-    private final byte[] biomes;
+    private final int[] biomes;
 
     private final ImmutableCompactArray<BlockState> surfaceBlocks;
 
@@ -80,7 +81,7 @@ public class CachedChunkData extends CustomAttributeContainer {
                 case WATERDEPTH_TYPE_WATER: //water - lake/river/pond
                     if (d + WATER_DEPTH_OFFSET >= 0) {
                         this.groundHeight[i] -= d + WATER_DEPTH_OFFSET;
-                        builder.biomes[(i >>> 4) | ((i & 0xF) << 4)] = Biome.RIVER;
+                        builder.biomes[(i >>> 4) | ((i & 0xF) << 4)] = MetaBiome.RIVER.fromRegistry();
                     }
                     break;
                 case WATERDEPTH_TYPE_OCEAN:
@@ -91,7 +92,7 @@ public class CachedChunkData extends CustomAttributeContainer {
                     } else {
                         this.surfaceHeight[i] = 0;
                         this.groundHeight[i] = min(this.groundHeight[i], -2);
-                        builder.biomes[(i >>> 4) | ((i & 0xF) << 4)] = Biome.DEEP_OCEAN;
+                        builder.biomes[(i >>> 4) | ((i & 0xF) << 4)] = MetaBiome.DEEP_OCEAN.fromRegistry();
                     }
                     break;
                 default:
@@ -99,9 +100,10 @@ public class CachedChunkData extends CustomAttributeContainer {
             }
         }
 
-        this.biomes = new byte[16 * 16];
+        this.biomes = new int[16 * 16];
         for (int i = 0; i < 16 * 16; i++) {
-            this.biomes[i] = (byte) PorkUtil.fallbackIfNull(builder.biomes[i], Biome.DEEP_OCEAN).numericId;
+            //Map from pseudo biomes, like MetaBiome, to real biome, to get the real numeric ID
+            this.biomes[i] = BiomesRegistry.get().map(PorkUtil.fallbackIfNull(builder.biomes[i],MetaBiome.DEEP_OCEAN)).getNumericId();
         }
 
         this.surfaceBlocks = new ImmutableCompactArray<>(builder.surfaceBlocks);
@@ -163,7 +165,7 @@ public class CachedChunkData extends CustomAttributeContainer {
         private final int[] surfaceHeight = new int[16 * 16];
         private final byte[] waterDepth = new byte[16 * 16];
 
-        private final Biome[] biomes = new Biome[16 * 16];
+        private final IBiome<?>[] biomes = new IBiome[16 * 16];
 
         protected final BlockState[] surfaceBlocks = new BlockState[16 * 16];
 
