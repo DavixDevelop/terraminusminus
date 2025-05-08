@@ -81,7 +81,7 @@ public class CachedChunkData extends CustomAttributeContainer {
                 case WATERDEPTH_TYPE_WATER: //water - lake/river/pond
                     if (d + WATER_DEPTH_OFFSET >= 0) {
                         this.groundHeight[i] -= d + WATER_DEPTH_OFFSET;
-                        builder.biomes[(i >>> 4) | ((i & 0xF) << 4)] = MetaBiome.RIVER.fromRegistry();
+                        builder.biomes[(i >>> 4) | ((i & 0xF) << 4)] = MetaBiome.RIVER;
                     }
                     break;
                 case WATERDEPTH_TYPE_OCEAN:
@@ -92,7 +92,7 @@ public class CachedChunkData extends CustomAttributeContainer {
                     } else {
                         this.surfaceHeight[i] = 0;
                         this.groundHeight[i] = min(this.groundHeight[i], -2);
-                        builder.biomes[(i >>> 4) | ((i & 0xF) << 4)] = MetaBiome.DEEP_OCEAN.fromRegistry();
+                        builder.biomes[(i >>> 4) | ((i & 0xF) << 4)] = MetaBiome.DEEP_OCEAN;
                     }
                     break;
                 default:

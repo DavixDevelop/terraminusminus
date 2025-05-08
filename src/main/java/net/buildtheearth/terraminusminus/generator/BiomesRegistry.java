@@ -36,10 +36,7 @@ public abstract class BiomesRegistry {
     }
 
     public static void registerBiome(IBiome<?> biome){
-        if(REGISTRY.containsKey(biome.getId()))
-            REGISTRY.replace(biome.getId(), biome);
-        else
-            REGISTRY.put(biome.getId(), biome);
+        REGISTRY.put(biome.getId(), biome);
     }
 
     /**
@@ -54,11 +51,10 @@ public abstract class BiomesRegistry {
     }
 
     /**
-     *
-     * @return Return the default IBiome instance
+     * @return The default IBiome handler instance
      */
     public static IBiome<?> getDefault() {
-        return MetaBiome.getDefault();
+        return REGISTRY.get(MetaBiome.getDefault().getId());
     }
 
     /**
@@ -81,6 +77,4 @@ public abstract class BiomesRegistry {
     public IBiome<?> map(IBiome<?> biome){
         return biome;
     }
-
-
 }

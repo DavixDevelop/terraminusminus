@@ -39,7 +39,7 @@ public class Terra121BiomeFilter implements IEarthBiomeFilter<Terra121BiomeFilte
         IBiome<?>[] biome = builder.state();
 
         if (data == null) {
-            Arrays.fill(biome, MetaBiome.OCEAN.fromRegistry());
+            Arrays.fill(biome, MetaBiome.OCEAN);
             return;
         }
 
@@ -58,43 +58,43 @@ public class Terra121BiomeFilter implements IEarthBiomeFilter<Terra121BiomeFilte
     protected IBiome<?> classify(double precipitation, double soil, double temperature) {
         switch ((int) soil) {
             case 0: //Ocean
-                return MetaBiome.OCEAN.fromRegistry();
+                return MetaBiome.OCEAN;
             case 1: //Shifting Sand
-                return MetaBiome.DESERT.fromRegistry();
+                return MetaBiome.DESERT;
             case 2: //Rock
-                return MetaBiome.DESERT.fromRegistry(); //cant find it (rock mountians)
+                return MetaBiome.DESERT; //cant find it (rock mountians)
             case 3: //Ice
-                return MetaBiome.ICE_MOUNTAINS.fromRegistry();
+                return MetaBiome.ICE_MOUNTAINS;
             case 5:
             case 6:
             case 7: //Permafrost
-                return MetaBiome.ICE_PLAINS.fromRegistry();
+                return MetaBiome.ICE_PLAINS;
             case 10, 34:
-                return MetaBiome.JUNGLE.fromRegistry();
+                return MetaBiome.JUNGLE;
             case 11:
             case 12, 41, 42, 43, 44, 45, 70, 72, 73, 74, 75, 76, 77, 82, 85:
-                return MetaBiome.PLAINS.fromRegistry();
+                return MetaBiome.PLAINS;
             case 15:
                 if (temperature < 5) {
-                    return MetaBiome.COLD_TAIGA.fromRegistry();
+                    return MetaBiome.COLD_TAIGA;
                 } else if (temperature > 15) {
-                    return MetaBiome.SWAMPLAND.fromRegistry();
+                    return MetaBiome.SWAMPLAND;
                 }
-                return MetaBiome.FOREST.fromRegistry();
+                return MetaBiome.FOREST;
             case 16:
             case 17:
             case 18:
             case 19:
                 if (temperature < 15) {
                     if (temperature < 0) {
-                        return MetaBiome.COLD_TAIGA.fromRegistry();
+                        return MetaBiome.COLD_TAIGA;
                     }
-                    return MetaBiome.SWAMPLAND.fromRegistry();
+                    return MetaBiome.SWAMPLAND;
                 }
                 if (temperature > 20) {
-                    return MetaBiome.SWAMPLAND.fromRegistry();
+                    return MetaBiome.SWAMPLAND;
                 }
-                return MetaBiome.FOREST.fromRegistry();
+                return MetaBiome.FOREST;
             case 29:
             case 30:
             case 31:
@@ -103,49 +103,49 @@ public class Terra121BiomeFilter implements IEarthBiomeFilter<Terra121BiomeFilte
             case 54:
             case 56:
             case 96:
-                return MetaBiome.SAVANNA.fromRegistry();
+                return MetaBiome.SAVANNA;
             case 50:
-                return MetaBiome.COLD_TAIGA.fromRegistry();
+                return MetaBiome.COLD_TAIGA;
             case 51: //salt flats always desert
-                return MetaBiome.DESERT.fromRegistry();
+                return MetaBiome.DESERT;
             case 52:
             case 53:
             case 55:
             case 99: //hot and dry
                 if (temperature < 2) {
-                    return MetaBiome.COLD_TAIGA.fromRegistry();
+                    return MetaBiome.COLD_TAIGA;
                 } else if (temperature < 5) {
-                    return MetaBiome.TAIGA.fromRegistry();
+                    return MetaBiome.TAIGA;
                 } else if (precipitation < 5) {
-                    return MetaBiome.DESERT.fromRegistry();
+                    return MetaBiome.DESERT;
                 }
-                return MetaBiome.MESA.fromRegistry(); //TODO: this soil can also be desert i.e. saudi Arabia (base on percip?)
+                return MetaBiome.MESA; //TODO: this soil can also be desert i.e. saudi Arabia (base on percip?)
             case 60:
             case 61:
             case 62:
             case 63:
             case 64:
                 if (temperature < 10) {
-                    return MetaBiome.TAIGA.fromRegistry();
+                    return MetaBiome.TAIGA;
                 }
-                return MetaBiome.FOREST.fromRegistry();
+                return MetaBiome.FOREST;
             case 13:
             case 40:
             case 71:
             case 80:
             case 95:
             case 98:
-                return MetaBiome.SWAMPLAND.fromRegistry();
+                return MetaBiome.SWAMPLAND;
             case 81:
             case 83:
             case 84:
             case 86, 90, 91, 92, 93, 94:
-                return MetaBiome.FOREST.fromRegistry();
+                return MetaBiome.FOREST;
             case 97:
-                return MetaBiome.DESERT.fromRegistry();
+                return MetaBiome.DESERT;
         }
 
-        return MetaBiome.PLAINS.fromRegistry();
+        return MetaBiome.PLAINS;
     }
 
     @RequiredArgsConstructor

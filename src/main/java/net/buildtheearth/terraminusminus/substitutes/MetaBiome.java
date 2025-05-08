@@ -106,11 +106,4 @@ public enum MetaBiome implements IBiome<MetaBiome> {
     public MetaBiome getBiome() {
         return byId(biomeId);
     }
-    /**
-     *
-     * @return Return the biome handler from the Biomes registry
-     */
-    public IBiome<?> fromRegistry() {
-        return BiomesRegistry.getById(biomeId);
-    }
 }

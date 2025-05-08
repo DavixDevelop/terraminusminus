@@ -36,9 +36,9 @@ public class NullIslandBaker implements IEarthDataBaker<Void> {
             }
 
             if (((pos.x() ^ (pos.x() >> 31)) | (pos.z() ^ (pos.z() >> 31))) == 0) {
-                Arrays.fill(builder.biomes(), MetaBiome.FOREST.fromRegistry());
+                Arrays.fill(builder.biomes(), MetaBiome.FOREST);
             } else {
-                Arrays.fill(builder.biomes(), MetaBiome.PLAINS.fromRegistry());
+                Arrays.fill(builder.biomes(), MetaBiome.PLAINS);
             }
 
             Arrays.fill(builder.waterDepth(), (byte) CachedChunkData.WATERDEPTH_DEFAULT);
